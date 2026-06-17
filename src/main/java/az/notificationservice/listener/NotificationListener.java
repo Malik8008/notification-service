@@ -4,6 +4,10 @@ import az.notificationservice.configuration.RabbitMQConfig;
 import az.notificationservice.dto.OrderEventDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -17,5 +21,18 @@ public class NotificationListener {
                 event.productId(),
                 event.quantity()
         );
+    }
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
+            ConnectionFactory connectionFactory,
+            MessageConverter messageConverter) {
+
+        SimpleRabbitListenerContainerFactory factory =
+                new SimpleRabbitListenerContainerFactory();
+
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(messageConverter);
+
+        return factory;
     }
 }
