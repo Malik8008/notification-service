@@ -2,11 +2,29 @@ server:
   port: 8083
 
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: thesafarovmalik@gmail.com
+    password: fabhthmrpuswyzuu
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: smtp.gmail.com
+            protocols: TLSv1.2
+          connectiontimeout: 15000
+          timeout: 15000
+          writetimeout: 15000
+
   rabbitmq:
-    host: localhost
+    host: 127.0.0.1
     port: 5672
     username: guest
     password: guest
-
-  main:
-    allow-bean-definition-overriding: true
+#    fabhthmrpuswyzuu
